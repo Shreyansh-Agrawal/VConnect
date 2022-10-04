@@ -5,7 +5,7 @@ import ChartsContainer from './ChartsContainer'
 import FormRow from './FormRow'
 import FormRowSelect from './FormRowSelect'
 import ProjectsContainer from './ProjectsContainer'
-import ProjectsContainerClub from './ProjectsContainerClub'
+import EventsContainer from './EventsContainer'
 import Loading from './Loading'
 import Logo from './Logo'
 import Navbar from './Navbar'
@@ -29,7 +29,7 @@ export {
   FormRowSelect,
   SearchContainer,
   ProjectsContainer,
-  ProjectsContainerClub,
+  EventsContainer,
   StatsContainer,
   StatsContainerClub,
   ChartsContainer,

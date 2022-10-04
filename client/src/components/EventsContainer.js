@@ -5,9 +5,9 @@ import Project from "./Project";
 import Wrapper from "../assets/wrappers/ProjectsContainer";
 import PageBtnContainer from "./PageBtnContainer";
 
-const ProjectsContainerClub = () => {
+const EventsContainer = () => {
   const {
-    getProjectsClub,
+    getEvents,
     projectsc,
     isLoading,
     pagec,
@@ -19,7 +19,7 @@ const ProjectsContainerClub = () => {
     numOfPagesc,
   } = useAppContext();
   useEffect(() => {
-    getProjectsClub();
+    getEvents();
     // eslint-disable-next-line
   }, [pagec, search, searchStatus, searchType, sort]);
   if (isLoading) {
@@ -49,4 +49,4 @@ const ProjectsContainerClub = () => {
   );
 };
 
-export default ProjectsContainerClub;
+export default EventsContainer;

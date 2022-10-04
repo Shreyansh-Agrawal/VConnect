@@ -8,11 +8,11 @@ import {
   AddProject,
 } from './pages/dashboard'
 import {
-  AllProjectsClub,
+  AllEvents,
   ProfileClub,
   SharedLayoutClub,
   StatsClub,
-  AddProjectClub,
+  AddEvent,
 } from "./pages/dashboardClub";
 
 function App() {
@@ -42,8 +42,8 @@ function App() {
           }
          >
           <Route index element={<StatsClub />} />
-          <Route path='all-projects' element={<AllProjectsClub />} />
-          <Route path='add-project' element={<AddProjectClub />} />
+          <Route path='all-projects' element={<AllEvents />} />
+          <Route path='add-project' element={<AddEvent />} />
           <Route path='profile' element={<ProfileClub />} />
         </Route>
 

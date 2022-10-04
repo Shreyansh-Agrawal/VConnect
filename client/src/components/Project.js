@@ -7,8 +7,8 @@ import ProjectInfo from './ProjectInfo'
 
 const Project = ({
   _id,
-  position,
-  company,
+  name,
+  course,
   projectLocation,
   projectType,
   createdAt,
@@ -21,10 +21,10 @@ const Project = ({
   return (
     <Wrapper>
       <header>
-        <div className="main-icon">{company.charAt(0)}</div>
+        <div className="main-icon">{course.charAt(0)}</div>
         <div className="info">
-          <h5>{position}</h5>
-          <p>{company}</p>
+          <h5>{name}</h5>
+          <p>{course}</p>
         </div>
       </header>
       <div className="content">

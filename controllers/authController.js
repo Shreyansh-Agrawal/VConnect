@@ -13,6 +13,13 @@ const register = async (req, res) => {
   if (userAlreadyExists) {
     throw new BadRequestError("Email already in use");
   }
+
+  if (
+    email.split("@")[1] !== "vitstudent.ac.in"
+  ) {
+    throw new BadRequestError("Please use VIT mail id");
+  }
+  
   const user = await User.create({ name, email, password });
 
   const token = user.createJWT();
@@ -77,7 +84,6 @@ const registerClub = async (req, res) => {
   }
 
   if (
-    email.split("@")[1] !== "vitstudent.ac.in" &&
     email.split("@")[1] !== "vit.ac.in"
   ) {
     throw new BadRequestError("Please use VIT mail id");

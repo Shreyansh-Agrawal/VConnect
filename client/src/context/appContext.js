@@ -37,16 +37,16 @@ import {
   SHOW_STATS_SUCCESS,
   CLEAR_FILTERS,
   CHANGE_PAGE,
-  CREATE_PROJECTC_BEGIN,
-  CREATE_PROJECTC_SUCCESS,
-  CREATE_PROJECTC_ERROR,
+  CREATE_EVENT_BEGIN,
+  CREATE_EVENT_SUCCESS,
+  CREATE_EVENT_ERROR,
   GET_PROJECTSC_BEGIN,
   GET_PROJECTSC_SUCCESS,
   SET_EDITC_PROJECT,
-  DELETE_PROJECTC_BEGIN,
-  EDIT_PROJECTC_BEGIN,
-  EDIT_PROJECTC_SUCCESS,
-  EDIT_PROJECTC_ERROR,
+  DELETE_EVENT_BEGIN,
+  EDIT_EVENT_BEGIN,
+  EDIT_EVENT_SUCCESS,
+  EDIT_EVENT_ERROR,
   SHOW_STATSC_BEGIN,
   SHOW_STATSC_SUCCESS,
 } from "./actions";
@@ -70,8 +70,8 @@ const initialState = {
   showSidebar: false,
   isEditing: false,
   editProjectId: "",
-  position: "",
-  company: "",
+  name: "",
+  course: "",
   projectLocation: userLocation || "",
   projectTypeOptions: ["Web development", "IoT", "AI-ML", "Blockchain"],
   projectType: "Web development",
@@ -85,8 +85,8 @@ const initialState = {
   monthlyApplications: [],
 
   editProjectIdc: "",
-  positionc: "c",
-  companyc: "c",
+  namec: "c",
+  coursec: "c",
   projectLocationc: clubLocation || "",
   projectTypeOptionsc: ["Web development", "IoT", "AI-ML", "Blockchain"],
   projectTypec: "Web development",
@@ -309,10 +309,10 @@ const AppProvider = ({ children }) => {
   const createProject = async () => {
     dispatch({ type: CREATE_PROJECT_BEGIN });
     try {
-      const { position, company, projectLocation, projectType, status } = state;
+      const { name, course, projectLocation, projectType, status } = state;
       await authFetch.post("/projects", {
-        position,
-        company,
+        name,
+        course,
         projectLocation,
         projectType,
         status,
@@ -361,10 +361,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: EDIT_PROJECT_BEGIN });
 
     try {
-      const { position, company, projectLocation, projectType, status } = state;
+      const { name, course, projectLocation, projectType, status } = state;
       await authFetch.patch(`/projects/${state.editProjectId}`, {
-        company,
-        position,
+        course,
+        name,
         projectLocation,
         projectType,
         status,
@@ -408,33 +408,33 @@ const AppProvider = ({ children }) => {
 
 /***********CLUB***********/
 
-  const createProjectClub = async () => {
-    dispatch({ type: CREATE_PROJECTC_BEGIN });
+  const createEvent = async () => {
+    dispatch({ type: CREATE_EVENT_BEGIN });
     try {
-      const { positionc, companyc, projectLocationc, projectTypec, statusc } = state;
-      await authFetch.post("/projects-club", {
-        positionc,
-        companyc,
+      const { namec, coursec, projectLocationc, projectTypec, statusc } = state;
+      await authFetch.post("/events", {
+        namec,
+        coursec,
         projectLocationc,
         projectTypec,
         statusc,
       });
-      dispatch({ type: CREATE_PROJECTC_SUCCESS });
+      dispatch({ type: CREATE_EVENT_SUCCESS });
       dispatch({ type: CLEARC_VALUES });
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({
-        type: CREATE_PROJECTC_ERROR,
+        type: CREATE_EVENT_ERROR,
         payload: { msg: error.response.data.msg },
       });
     }
     clearAlert();
   };
 
-  const getProjectsClub = async () => {
+  const getEvents = async () => {
     const { pagec, search, searchStatus, searchType, sort } = state;
 
-    let url = `/projects-club?page=${pagec}&status=${searchStatus}&projectType=${searchType}&sort=${sort}`;
+    let url = `/events?page=${pagec}&status=${searchStatus}&projectType=${searchType}&sort=${sort}`;
     if (search) {
       url = url + `&search=${search}`;
     }
@@ -456,36 +456,36 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const setEditProjectClub = (id) => {
+  const setEditEvent = (id) => {
     dispatch({ type: SET_EDITC_PROJECT, payload: { id } });
   };
-  const editProjectClub = async () => {
-    dispatch({ type: EDIT_PROJECTC_BEGIN });
+  const editEvent = async () => {
+    dispatch({ type: EDIT_EVENT_BEGIN });
 
     try {
-      const { positionc, companyc, projectLocationc, projectTypec, statusc } = state;
-      await authFetch.patch(`/projects-club/${state.editProjectIdc}`, {
-        companyc,
-        positionc,
+      const { namec, coursec, projectLocationc, projectTypec, statusc } = state;
+      await authFetch.patch(`/events/${state.editProjectIdc}`, {
+        coursec,
+        namec,
         projectLocationc,
         projectTypec,
         statusc,
       });
-      dispatch({ type: EDIT_PROJECTC_SUCCESS });
+      dispatch({ type: EDIT_EVENT_SUCCESS });
       dispatch({ type: CLEARC_VALUES });
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({
-        type: EDIT_PROJECTC_ERROR,
+        type: EDIT_EVENT_ERROR,
         payload: { msg: error.response.data.msg },
       });
     }
     clearAlert();
   };
-  const deleteProjectClub = async (projectId) => {
-    dispatch({ type: DELETE_PROJECTC_BEGIN });
+  const deleteEvent = async (projectId) => {
+    dispatch({ type: DELETE_EVENT_BEGIN });
     try {
-      await authFetch.delete(`/projects-club/${projectId}`);
+      await authFetch.delete(`/events/${projectId}`);
       getProjects();
     } catch (error) {
       // logoutClub();
@@ -494,7 +494,7 @@ const AppProvider = ({ children }) => {
   const showStatsClub = async () => {
     dispatch({ type: SHOW_STATSC_BEGIN });
     try {
-      const { data } = await authFetch("/projects-club/stats");
+      const { data } = await authFetch("/events/stats");
       dispatch({
         type: SHOW_STATSC_SUCCESS,
         payload: {
@@ -534,11 +534,11 @@ const AppProvider = ({ children }) => {
         deleteProject,
         editProject,
         showStats,
-        createProjectClub,
-        getProjectsClub,
-        setEditProjectClub,
-        deleteProjectClub,
-        editProjectClub,
+        createEvent,
+        getEvents,
+        setEditEvent,
+        deleteEvent,
+        editEvent,
         showStatsClub,
         clearFilters,
         changePage,

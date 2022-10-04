@@ -15,10 +15,9 @@ const Landing = () => {
             VITians <span>Networking</span> App
           </h1>
           <p>
-            I'm baby wayfarers hoodie next level taiyaki brooklyn cliche blue
-            bottle single-origin coffee chia. Aesthetic post-ironic venmo,
-            quinoa lo-fi tote bag adaptogen everyday carry meggings +1 brunch
-            narwhal.
+            Now keep track of your projects, connect with your peers and see the 
+            updates from the clubs of VIT. Want to join as a Club? Register as one 
+            to keep a track of your events and put up updates!
           </p>
           <Link
             to="/register"

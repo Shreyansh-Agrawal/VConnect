@@ -7,10 +7,10 @@ import {
   getAllProjects,
   updateProject,
   showStats,
-  createProjectClub,
-  deleteProjectClub,
-  getAllProjectsClub,
-  updateProjectClub,
+  createEvent,
+  deleteEvent,
+  getAllEvents,
+  updateEvent,
   showStatsClub,
 } from "../controllers/projectsController.js";
 
@@ -19,9 +19,9 @@ router.route('/').post(createProject).get(getAllProjects)
 router.route('/stats').get(showStats)
 router.route('/:id').delete(deleteProject).patch(updateProject)
 
-router.route("/club").post(createProjectClub).get(getAllProjectsClub);
+router.route("/club").post(createEvent).get(getAllEvents);
 // remember about :id
 router.route("/stats-club").get(showStatsClub);
-router.route("/:id").delete(deleteProjectClub).patch(updateProjectClub);
+router.route("/:id").delete(deleteEvent).patch(updateEvent);
 
 export default router

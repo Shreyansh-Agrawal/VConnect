@@ -2,14 +2,14 @@ import { FormRow, FormRowSelect, Alert } from '../../components'
 import { useAppContext } from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
-const AddProject = () => {
+const AddEvent = () => {
   const {
     isLoading,
     isEditing,
     showAlert,
     displayAlert,
-    positionc,
-    companyc,
+    namec,
+    coursec,
     projectLocationc,
     projectTypec,
     projectTypeOptionsc,
@@ -17,22 +17,22 @@ const AddProject = () => {
     statusOptionsc,
     handleChange,
     clearCValues,
-    createProjectClub,
-    editProjectClub,
+    createEvent,
+    editEvent,
   } = useAppContext()
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (!positionc || !companyc || !projectLocationc) {
+    if (!namec || !coursec || !projectLocationc) {
       displayAlert()
       return
     }
     if (isEditing) {
-      editProjectClub()
+      editEvent()
       return
     }
-    createProjectClub()
+    createEvent()
   }
   const handleProjectInput = (e) => {
     const name = e.target.name
@@ -48,20 +48,20 @@ const AddProject = () => {
         <h3>{isEditing ? "edit event" : "add event"}</h3>
         {showAlert && <Alert />}
         <div className="form-center">
-          {/* position */}
+          {/* name */}
           <FormRow
             type="text"
             labelText="name"
-            name="position"
-            value={positionc}
+            name="name"
+            value={namec}
             handleChange={handleProjectInput}
           />
-          {/* company */}
+          {/* course */}
           <FormRow
             type="text"
             labelText="date"
-            name="company"
-            value={companyc}
+            name="course"
+            value={coursec}
             handleChange={handleProjectInput}
           />
           {/* location */}
@@ -95,7 +95,7 @@ const AddProject = () => {
               onClick={handleSubmit}
               disabled={isLoading}
             >
-              submit
+              add
             </button>
             <button
               className="btn btn-block clear-btn"
@@ -113,4 +113,4 @@ const AddProject = () => {
   );
 }
 
-export default AddProject
+export default AddEvent

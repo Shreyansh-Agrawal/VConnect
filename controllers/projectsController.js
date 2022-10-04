@@ -1,5 +1,5 @@
 import Project from '../models/Project.js'
-import ProjectsClub from '../models/ProjectsClub.js'
+import Events from '../models/Events.js'
 import { StatusCodes } from 'http-status-codes'
 import {
   BadRequestError,
@@ -12,9 +12,9 @@ import mongoose from 'mongoose'
 import moment from 'moment'
 
 const createProject = async (req, res) => {
-  const { position, company } = req.body
+  const { name, course } = req.body
 
-  if (!position || !company) {
+  if (!name || !course) {
     throw new BadRequestError('Please provide all values')
   }
   req.body.createdBy = req.user.userId
@@ -36,7 +36,7 @@ const getAllProjects = async (req, res) => {
     queryObject.projectType = projectType
   }
   if (search) {
-    queryObject.position = { $regex: search, $options: 'i' }
+    queryObject.name = { $regex: search, $options: 'i' }
   }
   // NO AWAIT
 
@@ -51,10 +51,10 @@ const getAllProjects = async (req, res) => {
     result = result.sort('createdAt')
   }
   if (sort === 'a-z') {
-    result = result.sort('position')
+    result = result.sort('name')
   }
   if (sort === 'z-a') {
-    result = result.sort('-position')
+    result = result.sort('-name')
   }
 
   //
@@ -75,9 +75,9 @@ const getAllProjects = async (req, res) => {
 }
 const updateProject = async (req, res) => {
   const { id: projectId } = req.params
-  const { company, position } = req.body
+  const { course, name } = req.body
 
-  if (!position || !company) {
+  if (!name || !course) {
     throw new BadRequestError('Please provide all values')
   }
   const project = await Project.findOne({ _id: projectId })
@@ -158,15 +158,15 @@ const showStats = async (req, res) => {
 
 // *******CLUB********
 
-const createProjectClub = async (req, res) => {
-  const { positionc, companyc } = req.body
+const createEvent = async (req, res) => {
+  const { namec, coursec } = req.body
 
-  if (!positionc || !companyc) {
+  if (!namec || !coursec) {
     throw new BadRequestError('Please provide all values')
   }
   try {
      req.body.createdBy = req.club.clubId;
-     const project = await ProjectsClub.create(req.body);
+     const project = await Events.create(req.body);
      res.status(StatusCodes.CREATED).json({ project });
   } catch (error) {
     res.send(error)
@@ -174,7 +174,7 @@ const createProjectClub = async (req, res) => {
   }
  
 }
-const getAllProjectsClub = async (req, res) => {
+const getAllEvents = async (req, res) => {
   const { statusc, projectTypec, sortc, searchc } = req.query
 
   const queryObject = {
@@ -189,11 +189,11 @@ const getAllProjectsClub = async (req, res) => {
     queryObject.projectTypec = projectTypec
   }
   if (searchc) {
-    queryObject.positionc = { $regex: searchc, $options: 'i' }
+    queryObject.namec = { $regex: searchc, $options: 'i' }
   }
   // NO AWAIT
 
-  let result = ProjectsClub.find(queryObject)
+  let result = Events.find(queryObject)
 
   // chain sort conditions
 
@@ -204,10 +204,10 @@ const getAllProjectsClub = async (req, res) => {
     result = result.sort('createdAt')
   }
   if (sortc === 'a-z') {
-    result = result.sort('position')
+    result = result.sort('name')
   }
   if (sortc === 'z-a') {
-    result = result.sort('-position')
+    result = result.sort('-name')
   }
 
   //
@@ -221,19 +221,19 @@ const getAllProjectsClub = async (req, res) => {
 
   const projects = await result
 
-  const totalProjects = await ProjectsClub.countDocuments(queryObject)
+  const totalProjects = await Events.countDocuments(queryObject)
   const numOfPages = Math.ceil(totalProjects / limit)
 
   res.status(StatusCodes.OK).json({ projects, totalProjects, numOfPages })
 }
-const updateProjectClub = async (req, res) => {
+const updateEvent = async (req, res) => {
   const { id: projectId } = req.params
-  const { companyc, positionc } = req.body
+  const { coursec, namec } = req.body
 
-  if (!positionc || !companyc) {
+  if (!namec || !coursec) {
     throw new BadRequestError('Please provide all values')
   }
-  const project = await ProjectsClub.findOne({ _id: projectId })
+  const project = await Events.findOne({ _id: projectId })
 
   if (!project) {
     throw new NotFoundError(`No project with id :${projectId}`)
@@ -242,17 +242,17 @@ const updateProjectClub = async (req, res) => {
 
   checkPermissionsClub(req.club, project.createdBy)
 
-  const updatedProject = await ProjectsClub.findOneAndUpdate({ _id: projectId }, req.body, {
+  const updatedProject = await Events.findOneAndUpdate({ _id: projectId }, req.body, {
     new: true,
     runValidators: true,
   })
 
   res.status(StatusCodes.OK).json({ updatedProject })
 }
-const deleteProjectClub = async (req, res) => {
+const deleteEvent = async (req, res) => {
   const { id: projectId } = req.params
 
-  const project = await ProjectsClub.findOne({ _id: projectId })
+  const project = await Events.findOne({ _id: projectId })
 
   if (!project) {
     throw new NotFoundError(`No project with id :${projectId}`)
@@ -262,10 +262,10 @@ const deleteProjectClub = async (req, res) => {
 
   await project.remove()
 
-  res.status(StatusCodes.OK).json({ msg: 'Success! ProjectsClub removed' })
+  res.status(StatusCodes.OK).json({ msg: 'Success! Events removed' })
 }
 const showStatsClub = async (req, res) => {
-  let stats = await ProjectsClub.aggregate([
+  let stats = await Events.aggregate([
     { $match: { createdBy: mongoose.Types.ObjectId(req.club.clubId) } },
     { $group: { _id: '$status', count: { $sum: 1 } } },
   ])
@@ -281,7 +281,7 @@ const showStatsClub = async (req, res) => {
     ongoing: stats.ongoing || 0,
   }
 
-  let monthlyApplications = await ProjectsClub.aggregate([
+  let monthlyApplications = await Events.aggregate([
     { $match: { createdBy: mongoose.Types.ObjectId(req.club.clubId) } },
     {
       $group: {
@@ -315,9 +315,9 @@ export {
   getAllProjects,
   updateProject,
   showStats,
-  createProjectClub,
-  deleteProjectClub,
-  getAllProjectsClub,
-  updateProjectClub,
+  createEvent,
+  deleteEvent,
+  getAllEvents,
+  updateEvent,
   showStatsClub,
 };

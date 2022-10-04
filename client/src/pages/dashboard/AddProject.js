@@ -8,8 +8,8 @@ const AddProject = () => {
     isEditing,
     showAlert,
     displayAlert,
-    position,
-    company,
+    name,
+    course,
     projectLocation,
     projectType,
     projectTypeOptions,
@@ -24,7 +24,7 @@ const AddProject = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (!position || !company || !projectLocation) {
+    if (!name || !course || !projectLocation) {
       displayAlert()
       return
     }
@@ -46,20 +46,20 @@ const AddProject = () => {
         <h3>{isEditing ? "edit project" : "add project"}</h3>
         {showAlert && <Alert />}
         <div className="form-center">
-          {/* position */}
+          {/* name */}
           <FormRow
             type="text"
             labelText="Name"
-            name="position"
-            value={position}
+            name="name"
+            value={name}
             handleChange={handleProjectInput}
           />
-          {/* company */}
+          {/* course */}
           <FormRow
             type="text"
             labelText="Course"
-            name="company"
-            value={company}
+            name="course"
+            value={course}
             handleChange={handleProjectInput}
           />
           {/* location */}
@@ -93,7 +93,7 @@ const AddProject = () => {
               onClick={handleSubmit}
               disabled={isLoading}
             >
-              submit
+              add
             </button>
             <button
               className="btn btn-block clear-btn"

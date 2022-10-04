@@ -32,16 +32,16 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
 
-  CREATE_PROJECTC_BEGIN,
-  CREATE_PROJECTC_SUCCESS,
-  CREATE_PROJECTC_ERROR,
+  CREATE_EVENT_BEGIN,
+  CREATE_EVENT_SUCCESS,
+  CREATE_EVENT_ERROR,
   GET_PROJECTSC_BEGIN,
   GET_PROJECTSC_SUCCESS,
   SET_EDITC_PROJECT,
-  DELETE_PROJECTC_BEGIN,
-  EDIT_PROJECTC_BEGIN,
-  EDIT_PROJECTC_SUCCESS,
-  EDIT_PROJECTC_ERROR,
+  DELETE_EVENT_BEGIN,
+  EDIT_EVENT_BEGIN,
+  EDIT_EVENT_SUCCESS,
+  EDIT_EVENT_ERROR,
   SHOW_STATSC_BEGIN,
   SHOW_STATSC_SUCCESS,
 
@@ -210,8 +210,8 @@ const reducer = (state, action) => {
     const initialState = {
       isEditing: false,
       editProjectId: "",
-      position: "",
-      company: "",
+      name: "",
+      course: "",
       projectLocation: state.userLocation,
       projectType: "Web development",
       status: "planned",
@@ -227,8 +227,8 @@ const reducer = (state, action) => {
     const initialState = {
       isEditing: false,
       editProjectIdc: "",
-      position: "",
-      company: "",
+      name: "",
+      course: "",
       projectLocation: state.clubLocation,
       projectType: "Web development",
       status: "planned",
@@ -276,13 +276,13 @@ const reducer = (state, action) => {
   }
   if (action.type === SET_EDIT_PROJECT) {
     const project = state.projects.find((project) => project._id === action.payload.id)
-    const { _id, position, company, projectLocation, projectType, status } = project
+    const { _id, name, course, projectLocation, projectType, status } = project
     return {
       ...state,
       isEditing: true,
       editProjectId: _id,
-      position,
-      company,
+      name,
+      course,
       projectLocation,
       projectType,
       status,
@@ -331,11 +331,11 @@ const reducer = (state, action) => {
     }
   }
 
-  if (action.type === CREATE_PROJECTC_BEGIN) {
+  if (action.type === CREATE_EVENT_BEGIN) {
     return { ...state, isLoading: true }
   }
 
-  if (action.type === CREATE_PROJECTC_SUCCESS) {
+  if (action.type === CREATE_EVENT_SUCCESS) {
     return {
       ...state,
       isLoading: false,
@@ -344,7 +344,7 @@ const reducer = (state, action) => {
       alertText: 'New Project Created!',
     }
   }
-  if (action.type === CREATE_PROJECTC_ERROR) {
+  if (action.type === CREATE_EVENT_ERROR) {
     return {
       ...state,
       isLoading: false,
@@ -367,28 +367,28 @@ const reducer = (state, action) => {
   }
   if (action.type === SET_EDITC_PROJECT) {
     const project = state.projects.find((project) => project._id === action.payload.id)
-    const { _id, positionc, companyc, projectLocationc, projectTypec, statusc } = project
+    const { _id, namec, coursec, projectLocationc, projectTypec, statusc } = project
     return {
       ...state,
       isEditing: true,
       editProjectIdc: _id,
-      positionc,
-      companyc,
+      namec,
+      coursec,
       projectLocationc,
       projectTypec,
       statusc,
     }
   }
-  if (action.type === DELETE_PROJECTC_BEGIN) {
+  if (action.type === DELETE_EVENT_BEGIN) {
     return { ...state, isLoading: true }
   }
-  if (action.type === EDIT_PROJECTC_BEGIN) {
+  if (action.type === EDIT_EVENT_BEGIN) {
     return {
       ...state,
       isLoading: true,
     }
   }
-  if (action.type === EDIT_PROJECTC_SUCCESS) {
+  if (action.type === EDIT_EVENT_SUCCESS) {
     return {
       ...state,
       isLoading: false,
@@ -397,7 +397,7 @@ const reducer = (state, action) => {
       alertText: 'Project Updated!',
     }
   }
-  if (action.type === EDIT_PROJECTC_ERROR) {
+  if (action.type === EDIT_EVENT_ERROR) {
     return {
       ...state,
       isLoading: false,

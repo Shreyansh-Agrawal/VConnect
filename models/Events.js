@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-const ProjectClubSchema = new mongoose.Schema(
+const EventSchema = new mongoose.Schema(
   {
-    company: {
+    course: {
       type: String,
-      required: [true, "Please provide company"],
+      required: [true, "Please provide course"],
       maxlength: 50,
     },
-    position: {
+    name: {
       type: String,
-      required: [true, "Please provide position"],
+      required: [true, "Please provide name"],
       maxlength: 100,
     },
     status: {
@@ -36,4 +36,4 @@ const ProjectClubSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("ProjectsClub", ProjectClubSchema);
+export default mongoose.model("Events", EventSchema);
