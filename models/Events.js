@@ -22,7 +22,7 @@ const EventSchema = new mongoose.Schema(
       enum: ["Web development", "IoT", "AI-ML", "Blockchain"],
       default: "Web development",
     },
-    projectLocation: {
+    eventLocation: {
       type: String,
       default: "my city",
       required: true,

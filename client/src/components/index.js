@@ -15,6 +15,9 @@ import SmallSidebar from './SmallSidebar'
 import SmallSidebarClub from './SmallSidebarClub'
 import StatsContainer from './StatsContainer'
 import StatsContainerClub from './StatsContainerClub'
+import { ShowNotes } from './ShowNotes'
+import { CreateNotes } from './CreateNotes'
+import { UpdateNotes } from './UpdateNotes'
 
 export {
   Logo,
@@ -34,4 +37,7 @@ export {
   StatsContainerClub,
   ChartsContainer,
   Loading,
+  ShowNotes,
+  CreateNotes,
+  UpdateNotes
 }

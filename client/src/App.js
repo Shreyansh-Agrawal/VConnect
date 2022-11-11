@@ -6,6 +6,7 @@ import {
   SharedLayout,
   Stats,
   AddProject,
+  Notes
 } from './pages/dashboard'
 import {
   AllEvents,
@@ -31,6 +32,7 @@ function App() {
           <Route path='all-projects' element={<AllProjects />} />
           <Route path='add-project' element={<AddProject />} />
           <Route path='profile' element={<Profile />} />
+          <Route path='notes' element={<Notes />} />
         </Route>
 
         <Route

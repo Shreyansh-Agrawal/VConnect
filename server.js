@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 const app = express()
 import dotenv from 'dotenv'
 dotenv.config()
@@ -9,7 +10,12 @@ import connectDB from './db/connect.js'
 // routers
 import authRouter from './routes/authRoutes.js'
 import projectsRouter from './routes/projectsRoutes.js'
-import eventRouter from "./routes/eventRoutes.js";
+import eventRouter from "./routes/eventRoutes.js"
+import notes from "./routes/notes.js"
+
+// cors
+app.use(cors({ origin: true, credentials: true })); // added
+
 
 // middleware
 import notFoundMiddleware from './middleware/not-found.js'
@@ -21,6 +27,7 @@ app.use(express.json())
 
 app.use('/api/v1/auth', authRouter)
 app.use("/api/v1/projects", authenticateUser, projectsRouter);
+app.use("/api/v1/notes", notes);
 app.use("/api/v1/events", eventRouter);
 
 app.use(notFoundMiddleware)
