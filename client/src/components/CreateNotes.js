@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { FormRow } from "../components";
 import axios from "axios";
+import { useAppContext } from "../context/appContext";
 
 export function CreateNotes() {
-  const [data, setData] = useState({ title: "", description: "" });
+  const { user, club } = useAppContext();
+  const [data, setData] = useState({
+    title: "",
+    description: "",
+    createdBy: user?.name || club?.name,
+  });
 
   function handleChange(e) {
     setData((data) => ({ ...data, [e.target.name]: e.target.value }));
@@ -15,13 +21,18 @@ export function CreateNotes() {
     const notes = {
       title: data.title,
       description: data.description,
+      createdBy: user?.name || club?.name
     };
 
     console.log({ notes });
     axios
       .post("http://localhost:5000/api/v1/notes", data)
       .then((res) => {
-        setData({ title: "", description: "" });
+        setData({
+          title: "",
+          description: "",
+          createdBy: user?.name || club?.name,
+        });
         console.log(res.data.message);
       })
       .catch((err) => {
@@ -34,7 +45,7 @@ export function CreateNotes() {
     <>
       <section className="contents">
         <form onSubmit={handleSubmit} className="form" noValidate>
-          <h3>Add Notes</h3>
+          {club ? <h1>New Announcement</h1> : <h1>Add Notes</h1>}
           <div className="form-center">
             <FormRow
               type="text"

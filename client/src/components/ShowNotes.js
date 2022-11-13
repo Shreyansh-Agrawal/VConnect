@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
- import {UpdateNotes} from '../components'
+import {UpdateNotes} from '../components'
 import Wrapper from "../assets/wrappers/Project";
+import { useAppContext } from "../context/appContext";
 
 function NotesCard({ data, handleEdit, handleDelete }) {
   // updated
-  const { _id, title, description } = data;
+  const { _id, title, description, createdBy } = data;
 
   return (
     <Wrapper style={{marginBottom:"2%"}}>
@@ -14,6 +15,8 @@ function NotesCard({ data, handleEdit, handleDelete }) {
           <div className="info">
             <h3>{title}</h3>
             <p>{description}</p>
+            <br />
+            <p>-{createdBy}</p>
           </div>
         </header>
         <div className="content">
@@ -49,6 +52,7 @@ export function ShowNotes() {
   const [open, setOpen] = useState(false); // added
   const [id, setId] = useState(""); // added
   const [update, setUpdate] = useState(false); // added
+  const { club } = useAppContext();
 
   useEffect(
     function () {
@@ -95,7 +99,7 @@ export function ShowNotes() {
   return (
     <section className="container">
       <section className="contents">
-        <h1>Notes</h1>
+        {club ? <h1>Announcements</h1> : <h1>Notes</h1>}
         <ul className="list-container">
           {notes.map((data) => (
             <NotesCard

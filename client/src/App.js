@@ -6,7 +6,8 @@ import {
   SharedLayout,
   Stats,
   AddProject,
-  Notes
+  Notes,
+  File
 } from './pages/dashboard'
 import {
   AllEvents,
@@ -21,41 +22,43 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path='/'
+          path="/"
           element={
             <ProtectedRoute>
               <SharedLayout />
             </ProtectedRoute>
           }
-         >
+        >
           <Route index element={<Stats />} />
-          <Route path='all-projects' element={<AllProjects />} />
-          <Route path='add-project' element={<AddProject />} />
-          <Route path='profile' element={<Profile />} />
-          <Route path='notes' element={<Notes />} />
+          <Route path="all-projects" element={<AllProjects />} />
+          <Route path="add-project" element={<AddProject />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="notes" element={<Notes />} />
+          <Route path="file" element={<File />} />
         </Route>
 
         <Route
-          path='/club'
+          path="/club"
           element={
             <ProtectedRoute>
               <SharedLayoutClub />
             </ProtectedRoute>
           }
-         >
+        >
           <Route index element={<StatsClub />} />
-          <Route path='all-projects' element={<AllEvents />} />
-          <Route path='add-project' element={<AddEvent />} />
-          <Route path='profile' element={<ProfileClub />} />
+          <Route path="all-projects" element={<AllEvents />} />
+          <Route path="add-project" element={<AddEvent />} />
+          <Route path="profile" element={<ProfileClub />} />
+          <Route path="notes" element={<Notes />} />
         </Route>
 
-        <Route path='/register' element={<Register />} />
-        <Route path='/registerClub' element={<RegisterClub />} />
-        <Route path='/landing' element={<Landing />} />
-        <Route path='*' element={<Error />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/registerClub" element={<RegisterClub />} />
+        <Route path="/landing" element={<Landing />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App

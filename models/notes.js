@@ -1,4 +1,3 @@
-// models/notes.js
 import mongoose from "mongoose";
 
 const NotesSchema = new mongoose.Schema({
@@ -9,6 +8,9 @@ const NotesSchema = new mongoose.Schema({
     description: {
         type: "String",
     },
+    createdBy:{
+        type: "String",
+    }
 });
 
 export default mongoose.model("notes", NotesSchema);
