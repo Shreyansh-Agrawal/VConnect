@@ -85,8 +85,8 @@ const initialState = {
   monthlyApplications: [],
 
   editProjectIdc: "",
-  namec: "c",
-  coursec: "c",
+  namec: "",
+  coursec: "",
   projectLocationc: clubLocation || "",
   projectTypeOptionsc: ["Web development", "IoT", "AI-ML", "Blockchain"],
   projectTypec: "Web development",

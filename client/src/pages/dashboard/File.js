@@ -1,68 +1,50 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import CustomInput from "./Input.component/Input.jsx";
+import Axios from "axios";
+import "./Input.component/app.css"
 
 const File = () => {
-    const [newFile, setNewFile] = useState(
-        {
-            name: '',
-            birthdate: '',
-            photo: '',
-        }
-    );
+  const [fileData, setFileData] = useState();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('photo', newFile.photo);
-        formData.append('birthdate', newFile.birthdate);
-        formData.append('name', newFile.name);
+  const [images, setFile] = useState("");
 
-        axios.post('http://localhost:5000/api/v1/file/add/', formData)
-             .then(res => {
-                console.log(res);
-             })
-             .catch(err => {
-                console.log(err);
-             });
-    }
+  const handleFileChange = ({ target }) => {
+    setFileData(target.files[0]);
+    setFile(target.value);
+  };
 
-    const handleChange = (e) => {
-        setNewFile({...newFile, [e.target.name]: e.target.value});
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handlePhoto = (e) => {
-        setNewFile({...newFile, photo: e.target.files[0]});
-    }
+    const formdata = new FormData();
 
-    return (
-        <form onSubmit={handleSubmit} encType='multipart/form-data'>
-            <input 
-                type="file" 
-                accept=".png, .jpg, .jpeg"
-                name="photo"
-                onChange={handlePhoto}
-            />
+    formdata.append("image", fileData);
 
-            <input 
-                type="text"
-                placeholder="name"
-                name="name"
-                value={newFile.name}
-                onChange={handleChange}
-            />
+    await Axios.post("http://localhost:5000/api/image", formdata)
+      .then((res) => console.log("res", res.data))
+      .catch((error) => console.error(error));
+  };
 
-            <input 
-                type="date"
-                name="birthdate"
-                value={newFile.date}
-                onChange={handleChange}
-            />
+  return (
+    <form onSubmit={handleSubmit} className="form">
+      <label htmlFor="images" className="drop-container">
+        <span className="drop-title">Drop files here</span>
+        or
+        <CustomInput
+          style={{}}
+          type="file"
+          value={images}
+          name="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          placeholder="upload image"
+          isRequired={true}
+        />
+      </label>
 
-            <input 
-                type="submit"
-            />
-        </form>
-    );
-}
+      <button style={{marginTop: "5%"}} className="btn btn-block">submit</button>
+    </form>
+  );
+};
 
 export default File;

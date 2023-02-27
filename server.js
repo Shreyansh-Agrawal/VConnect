@@ -4,7 +4,7 @@ const app = express()
 import dotenv from 'dotenv'
 dotenv.config()
 import 'express-async-errors'
-
+import ImageUploadRouter from './routes/uploadImageRoute.js'
 import connectDB from './db/connect.js'
 
 // routers
@@ -31,7 +31,7 @@ app.use("/api/v1/projects", authenticateUser, projectsRouter);
 app.use("/api/v1/notes", notes);
 app.use("/api/v1/file", file);
 app.use("/api/v1/events", eventRouter);
-
+app.use("/api", ImageUploadRouter);
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 
