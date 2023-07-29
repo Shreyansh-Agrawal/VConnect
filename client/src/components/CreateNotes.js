@@ -9,6 +9,7 @@ export function CreateNotes() {
     title: "",
     description: "",
     createdBy: user?.name || club?.name,
+    madeBy: user?._id || club?._id,
   });
 
   function handleChange(e) {
@@ -21,7 +22,8 @@ export function CreateNotes() {
     const notes = {
       title: data.title,
       description: data.description,
-      createdBy: user?.name || club?.name
+      createdBy: user?.name || club?.name,
+      madeBy: user?._id || club?._id,
     };
 
     console.log({ notes });
@@ -32,6 +34,7 @@ export function CreateNotes() {
           title: "",
           description: "",
           createdBy: user?.name || club?.name,
+          madeBy: user?._id || club?._id,
         });
         console.log(res.data.message);
       })

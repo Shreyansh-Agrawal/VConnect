@@ -6,7 +6,8 @@ import { useAppContext } from "../context/appContext";
 
 function NotesCard({ data, handleEdit, handleDelete }) {
   // updated
-  const { _id, title, description, createdBy } = data;
+  const { _id, title, description, createdBy, madeBy } = data;
+  const { user, club } = useAppContext();
 
   return (
     <Wrapper style={{marginBottom:"2%"}}>
@@ -19,7 +20,9 @@ function NotesCard({ data, handleEdit, handleDelete }) {
             <p>-{createdBy}</p>
           </div>
         </header>
-        <div className="content">
+
+        {user?._id===madeBy || club?._id===madeBy?
+          (<div className="content">
           <div className="content-center">
             
               <div className="actions">
@@ -41,7 +44,8 @@ function NotesCard({ data, handleEdit, handleDelete }) {
               </div>
             
           </div>
-        </div>
+        </div>) : ""}
+
       </li>
     </Wrapper>
   );

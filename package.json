@@ -1,7 +1,7 @@
 {
   "name": "VConnect",
   "version": "1.0.0",
-  "description": "#### Track Your Job Search",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
