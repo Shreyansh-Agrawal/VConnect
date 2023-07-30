@@ -12,7 +12,7 @@ const Landing = () => {
         {/* info */}
         <div className="info">
           <h1>
-            VITians <span>Networking</span> App
+            VITians <span>Connect</span>
           </h1>
           <p>
             Now keep track of your projects, connect with your peers and see the 

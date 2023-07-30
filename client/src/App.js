@@ -45,9 +45,9 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<StatsClub />} />
-          <Route path="all-projects" element={<AllEvents />} />
-          <Route path="add-project" element={<AddEvent />} />
+          <Route index element={<Notes />} />
+          {/* <Route path="all-projects" element={<AllEvents />} />
+          <Route path="add-project" element={<AddEvent />} /> */}
           <Route path="profile" element={<ProfileClub />} />
           <Route path="notes" element={<Notes />} />
         </Route>

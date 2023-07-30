@@ -15,11 +15,11 @@ const links = [
 ];
 
 export const linksClub = [
-  { id: 1, text: "stats", path: "/club", icon: <IoBarChartSharp /> },
-  { id: 2, text: "all events", path: "all-projects", icon: <MdQueryStats /> },
-  { id: 3, text: "add event", path: "add-project", icon: <FaWpforms /> },
+  // { id: 1, text: "stats", path: "/club", icon: <IoBarChartSharp /> },
+  // { id: 2, text: "all events", path: "all-projects", icon: <MdQueryStats /> },
+  // { id: 3, text: "add event", path: "add-project", icon: <FaWpforms /> },
+  { id: 1, text: "announcements", path: "/club", icon: <FaWpforms /> },
   { id: 4, text: "profile", path: "profile", icon: <ImProfile /> },
-  { id: 5, text: "notes", path: "notes", icon: <FaStickyNote /> },
 ];
 
 export default links

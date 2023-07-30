@@ -65,7 +65,7 @@ export function CreateNotes() {
             />
 
             <button type="submit" className="btn btn-block">
-              create note
+              {club ?<>create announcement</>:<>create note</>}
             </button>
           </div>
         </form>
