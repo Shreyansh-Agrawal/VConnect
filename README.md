@@ -31,6 +31,5 @@ npm start
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Demo
-<br/>
 https://github.com/Shreyansh-Agrawal/VConnect/assets/72445442/b01a7c21-24ff-4b62-83c2-750f044ca4f8
 
